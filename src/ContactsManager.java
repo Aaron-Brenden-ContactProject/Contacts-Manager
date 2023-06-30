@@ -14,9 +14,11 @@ public class ContactsManager {
 
     public static void showContacts() throws IOException {
         List<String> contactList = Files.readAllLines(file);
-        if(contactList.isEmpty()){
+        if (contactList.isEmpty()) {
             System.out.println("No contacts found.");
         } else {
+            System.out.println("Name | Phone Number");
+            System.out.println("-------------------");
             for (int i = 0; i < contactList.size(); i += 1) {
                 System.out.println((i + 1) + ": " + contactList.get(i));
             }
@@ -61,19 +63,45 @@ public class ContactsManager {
         System.out.println("Enter a name or contact number to search:");
         String nameOrNumber = scanner.nextLine();
         List<String> lines = Files.readAllLines(file);
-        for(String line: lines){
-            if(line.contains(nameOrNumber)){
+        for (String line : lines) {
+            if (line.contains(nameOrNumber)) {
                 System.out.println(line);
             }
         }
     }
 
+    public static void contactsManagerApp() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = true;
+        while (exit) {
+            System.out.println("""
+                    Main Menu:\s
+                    1. View Contact List\s
+                    2. Add New Contact\s
+                    3. Search Contact\s
+                    4. Delete a Contact\s
+                    5. Exit\s
+                    """);
+            System.out.println("Enter an Option 1-5: ");
+            int userInput = scanner.nextInt();
+            switch (userInput) {
+                case 1 -> showContacts();
+                case 2 -> addContact();
+                case 3 -> oneContact();
+                case 4 -> removeContact();
+                case 5 -> {
+                    System.out.println("Exiting...");
+                    exit = false;
+                }
+            }
+        }
+    }
 
     public static void main(String[] args) throws IOException {
-
-        showContacts();
+//        showContacts();
 //        addContact();
 //        removeContact();
-        oneContact();
+//        oneContact();
+        contactsManagerApp();
     }
 }
