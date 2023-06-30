@@ -31,6 +31,10 @@ public class ContactsManager {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a name:");
         String name = scanner.nextLine();
+        while(name.equals("")){
+            System.out.println("Enter a name:");
+            name = scanner.nextLine();
+        }
         System.out.println("Enter a contact number:");
         String phone = scanner.nextLine();
         boolean test = true;
@@ -62,6 +66,10 @@ public class ContactsManager {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a name or contact number:");
         String nameOrNumber = scanner.nextLine();
+        while(nameOrNumber.equals("")){
+            System.out.println("Enter a name or contact number:");
+            nameOrNumber = scanner.nextLine();
+        }
         List<String> lines = Files.readAllLines(file);
         List<String> newList = new ArrayList<>();
         for (String line : lines) {
@@ -79,6 +87,10 @@ public class ContactsManager {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a name or contact number to search:");
         String nameOrNumber = scanner.nextLine();
+        while(nameOrNumber.equals("")){
+            System.out.println("Enter a name or contact number to search:");
+            nameOrNumber = scanner.nextLine();
+        }
         List<String> lines = Files.readAllLines(file);
         for (String line : lines) {
             if (line.toLowerCase().contains(nameOrNumber)) {
