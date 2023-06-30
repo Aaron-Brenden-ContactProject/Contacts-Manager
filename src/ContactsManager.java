@@ -56,11 +56,24 @@ public class ContactsManager {
         showContacts();
     }
 
+    public static void oneContact() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a name or contact number to search:");
+        String nameOrNumber = scanner.nextLine();
+        List<String> lines = Files.readAllLines(file);
+        for(String line: lines){
+            if(line.contains(nameOrNumber)){
+                System.out.println(line);
+            }
+        }
+    }
+
 
     public static void main(String[] args) throws IOException {
 
         showContacts();
 //        addContact();
-        removeContact();
+//        removeContact();
+        oneContact();
     }
 }
