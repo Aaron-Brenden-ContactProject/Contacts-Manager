@@ -10,8 +10,9 @@ import java.util.Scanner;
 
 
 public class ContactsManager {
+//    list from the contact.txt file
     private static final Path file = Paths.get("data", "contacts.txt");
-
+//    method for showing the contacts form the file
     public static void showContacts() throws IOException {
         List<String> contactList = Files.readAllLines(file);
         if (contactList.isEmpty()) {
@@ -25,13 +26,29 @@ public class ContactsManager {
         }
         System.out.println();
     }
-
+// method for adding a contact to the list
     public static void addContact() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a name:");
         String name = scanner.nextLine();
         System.out.println("Enter a contact number:");
         String phone = scanner.nextLine();
+        boolean test = true;
+        boolean length = false;
+        if(phone.length() == 7){
+            test = false;
+            length = true;
+        }
+        if(!length) {
+            if(phone.length() == 10){
+                test = false;
+                length = true;
+            }
+        }
+        while(test){
+            System.out.println("Please Enter a Proper phone number!");
+            phone = scanner.nextLine();
+        }
         String contact = name + " | " + phone;
         Files.write(
                 Paths.get("data", "contacts.txt"),
@@ -40,7 +57,7 @@ public class ContactsManager {
         );
         showContacts();
     }
-
+// method to remove contact from the list and rewrite the list file
     public static void removeContact() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a name or contact number:");
@@ -48,7 +65,7 @@ public class ContactsManager {
         List<String> lines = Files.readAllLines(file);
         List<String> newList = new ArrayList<>();
         for (String line : lines) {
-            if (line.contains(nameOrNumber)) {
+            if (line.toLowerCase().contains(nameOrNumber)) {
                 newList.remove(line);
                 continue;
             }
@@ -57,19 +74,20 @@ public class ContactsManager {
         Files.write(Paths.get("data", "contacts.txt"), newList);
         showContacts();
     }
-
+// method to show the searched contact in the list
     public static void oneContact() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a name or contact number to search:");
         String nameOrNumber = scanner.nextLine();
         List<String> lines = Files.readAllLines(file);
         for (String line : lines) {
-            if (line.contains(nameOrNumber)) {
+            if (line.toLowerCase().contains(nameOrNumber)) {
                 System.out.println(line);
+                System.out.println();
             }
         }
     }
-
+// the method that runs the app
     public static void contactsManagerApp() throws IOException {
         Scanner scanner = new Scanner(System.in);
         boolean exit = true;
@@ -98,10 +116,15 @@ public class ContactsManager {
     }
 
     public static void main(String[] args) throws IOException {
-//        showContacts();
-//        addContact();
-//        removeContact();
-//        oneContact();
+        System.out.println("""
+                               
+                ░██╗░░░░░░░██╗███████╗██╗░░░░░░█████╗░░█████╗░███╗░░░███╗███████╗
+                ░██║░░██╗░░██║██╔════╝██║░░░░░██╔══██╗██╔══██╗████╗░████║██╔════╝
+                ░╚██╗████╗██╔╝█████╗░░██║░░░░░██║░░╚═╝██║░░██║██╔████╔██║█████╗░░
+                ░░████╔═████║░██╔══╝░░██║░░░░░██║░░██╗██║░░██║██║╚██╔╝██║██╔══╝░░
+                ░░╚██╔╝░╚██╔╝░███████╗███████╗╚█████╔╝╚█████╔╝██║░╚═╝░██║███████╗
+                ░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝
+                """);
         contactsManagerApp();
     }
 }
