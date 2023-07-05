@@ -1,4 +1,4 @@
 John | 1234567
 Jacob | 2345678
 JingleHeimer | 1234567890
-Schmidt | 2345678901Name | 1234567
+Schmidt | 2345678901
