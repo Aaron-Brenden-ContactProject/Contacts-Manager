@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class ContactsManager {
 //    list from the contact.txt file
     private static final Path file = Paths.get("data", "contacts.txt");
+    static Scanner scanner = new Scanner(System.in);
 //    method for showing the contacts form the file
     public static void showContacts() throws IOException {
         List<String> contactList = Files.readAllLines(file);
@@ -28,8 +29,7 @@ public class ContactsManager {
     }
 // method for adding a contact to the list
     public static void addContact() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a name:");
+//        System.out.println("Enter a name:");
         String name = scanner.nextLine();
         while(name.equals("")){
             System.out.println("Enter a name:");
@@ -49,22 +49,22 @@ public class ContactsManager {
                 length = true;
             }
         }
+        Contact contact = new Contact(name, phone);
         while(test){
             System.out.println("Please Enter a Proper phone number!");
             phone = scanner.nextLine();
         }
-        String contact = name + " | " + phone;
+        String contacts = contact.printContact();
         Files.write(
                 Paths.get("data", "contacts.txt"),
-                Arrays.asList(contact), // list with one item
+                Arrays.asList(contacts), // list with one item
                 StandardOpenOption.APPEND
         );
         showContacts();
     }
 // method to remove contact from the list and rewrite the list file
     public static void removeContact() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a name or contact number:");
+//        System.out.println("Enter a name or contact number:");
         String nameOrNumber = scanner.nextLine();
         while(nameOrNumber.equals("")){
             System.out.println("Enter a name or contact number:");
@@ -84,8 +84,7 @@ public class ContactsManager {
     }
 // method to show the searched contact in the list
     public static void oneContact() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a name or contact number to search:");
+//        System.out.println("Enter a name or contact number to search:");
         String nameOrNumber = scanner.nextLine();
         while(nameOrNumber.equals("")){
             System.out.println("Enter a name or contact number to search:");
@@ -101,7 +100,6 @@ public class ContactsManager {
     }
 // the method that runs the app
     public static void contactsManagerApp() throws IOException {
-        Scanner scanner = new Scanner(System.in);
         boolean exit = true;
         while (exit) {
             System.out.println("""
@@ -126,6 +124,42 @@ public class ContactsManager {
             }
         }
     }
+
+//    public static void editNameOrNumber() throws IOException {
+//        System.out.println("Enter a name or contact number to edit:");
+//        String nameOrNumber = scanner.nextLine();
+//        while(nameOrNumber.equals("")){
+//            System.out.println("Enter a name or contact number to edit:");
+//            nameOrNumber = scanner.nextLine();
+//        }
+//        List<String> lines = Files.readAllLines(file);
+//        for (String line : lines) {
+//            if (line.toLowerCase().contains(nameOrNumber)) {
+//                System.out.println(line);
+//                System.out.println();
+//            }
+//        }
+//        boolean exit = true;
+//        while (exit) {
+//            System.out.println("""
+//                    Menu:\s
+//                    1. Edit Contact Name\s
+//                    2. Edit Contact Number\s
+//                    3. Exit\s
+//                    """);
+//            System.out.println("Enter an Option 1-3: ");
+//            int userInput = scanner.nextInt();
+//            String newInput = scanner.nextLine();
+//            switch (userInput) {
+//                case 1 -> setName(newInput);
+//                case 2 -> addContact();
+//                case 3 -> {
+//                    System.out.println("Exiting...");
+//                    exit = false;
+//                }
+//            }
+//        }
+//    }
 
     public static void main(String[] args) throws IOException {
         System.out.println("""
